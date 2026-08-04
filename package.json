@@ -1,0 +1,15 @@
+{
+  "name": "kennychan-website",
+  "version": "1.0.0",
+  "description": "Personal website for KennyChan_",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": ["personal", "portfolio", "website"],
+  "author": "KennyChan_",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}
