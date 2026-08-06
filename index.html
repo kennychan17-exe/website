@@ -29,17 +29,45 @@
     #loader {
       position: fixed; inset: 0; z-index: 9999; background: #000;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
+      transition: opacity 0.7s ease, visibility 0.7s ease, transform 0.7s ease;
     }
-    #loader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+    #loader.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: scale(1.05);
+    }
     .loader-logo {
       font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; font-weight: 700;
       background: linear-gradient(135deg, #fff 20%, #c4b5fd 70%, #93c5fd 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: logoIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      opacity: 0;
+      transform: translateY(18px) scale(0.95);
     }
-    .loader-percent { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; color: rgba(255,255,255,0.45); }
-    .loader-bar { width: 130px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
-    .loader-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #c4b5fd, #93c5fd); border-radius: 4px; transition: width 0.12s linear; }
+    @keyframes logoIn {
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .loader-percent {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; color: rgba(255,255,255,0.45);
+      animation: fadeInDelay 0.6s ease 0.3s forwards;
+      opacity: 0;
+    }
+    .loader-bar {
+      width: 130px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;
+      animation: fadeInDelay 0.6s ease 0.4s forwards;
+      opacity: 0;
+    }
+    .loader-bar-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, #c4b5fd, #93c5fd);
+      border-radius: 4px;
+      transition: width 0.12s linear;
+    }
+    @keyframes fadeInDelay {
+      to { opacity: 1; }
+    }
+
 
     .reveal { opacity: 0; transform: translateY(32px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -77,23 +105,134 @@
 
     section { padding: 4.2rem 0 1.6rem; }
     .section-title {
-      font-size: 0.8rem; letter-spacing: 0.26em; text-transform: uppercase;
-      color: var(--text-muted); text-align: center; margin-bottom: 2.1rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 2.1rem;
+      font-weight: 500;
     }
     .section-title::before, .section-title::after {
       content: ''; display: inline-block; width: 32px; height: 1px;
       background: rgba(255,255,255,0.1); vertical-align: middle; margin: 0 0.85rem;
     }
 
-    .profile { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem; }
-    .avatar {
-      width: 114px; height: 114px; border-radius: 50%; object-fit: cover;
-      border: 2.5px solid rgba(255,255,255,0.12); background: #111;
-      box-shadow: 0 10px 36px rgba(0,0,0,0.55);
+    /* ===== Discord-style Profile Card ===== */
+    .discord-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 1.4rem;
     }
-    .profile h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 600; }
-    .profile h2 span { color: var(--text-muted); font-weight: 400; font-size: 1.05rem; }
-    .bio { max-width: 340px; color: rgba(210, 210, 220, 0.68); font-size: 1.02rem; line-height: 1.65; }
+
+    /* Banner - CHANGE THE URL BELOW to your own banner image */
+    .discord-banner {
+      height: 140px;
+      width: 100%;
+      background-color: #1a1a1e;
+      background-image: url('https://raw.githubusercontent.com/kennychan17-exe/website/refs/heads/main/31935d65e1364ed5a81720e92d09c9bc.jpg'); /* <-- replace this URL with your banner */
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    /* If you don't have a banner yet, the dark background will show.
+       To add one: upload your image somewhere (Discord, Imgur, etc.) and paste the direct image link above. */
+
+    .discord-body {
+      position: relative;
+      padding: 0 1.35rem 1.35rem;
+    }
+
+    .discord-avatar-wrap {
+      position: relative;
+      margin-top: -48px;
+      margin-bottom: 0.85rem;
+      width: fit-content;
+    }
+
+    .discord-avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 6px solid #101010;
+      background: #111;
+      display: block;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+
+    .status-indicator {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 4px solid #101010;
+      background: #747f8d;
+    }
+    .status-indicator.online { background: #23a55a; }
+    .status-indicator.idle { background: #f0b232; }
+    .status-indicator.dnd { background: #f23f43; }
+    .status-indicator.offline { background: #747f8d; }
+
+    .discord-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .discord-status-text {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 0.65rem;
+    }
+
+    .discord-bio {
+      font-size: 1.02rem;
+      color: rgba(210, 210, 220, 0.75);
+      line-height: 1.55;
+      margin-bottom: 0.7rem;
+    }
+
+    .discord-activity {
+      font-size: 0.88rem;
+      color: rgba(200, 210, 235, 0.65);
+      margin-bottom: 0.5rem;
+      display: none;
+    }
+
+    .spotify-section {
+      display: none;
+      margin-top: 0.9rem;
+      padding-top: 0.95rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      align-items: center;
+      gap: 0.95rem;
+    }
+    .spotify-section.visible { display: flex; }
+    .spotify-art {
+      width: 52px; height: 52px; border-radius: 9px; object-fit: cover; background: #111;
+    }
+    .spotify-meta { flex: 1; min-width: 0; }
+    .spotify-label {
+      font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: #1db954;
+    }
+    .spotify-song {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.98rem; font-weight: 600;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .spotify-artist {
+      font-size: 0.82rem; color: var(--text-muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
 
     .card {
       background: var(--card-bg); backdrop-filter: blur(18px);
@@ -109,35 +248,93 @@
     .social-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
     .social-label { font-size: 0.96rem; }
 
-    .status-card { padding: 1.25rem 1.35rem; }
-    .lanyard-row { display: flex; align-items: flex-start; gap: 1rem; }
-    .lanyard-avatar {
-      width: 58px; height: 58px; border-radius: 50%; object-fit: cover;
-      border: 2px solid rgba(255,255,255,0.1); background: #111; flex-shrink: 0;
-    }
-    .lanyard-info { flex: 1; min-width: 0; }
-    .lanyard-name {
-      font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.1rem;
-      margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.45rem;
-    }
-    .status-dot { width: 9px; height: 9px; border-radius: 50%; background: #747f8d; }
-    .status-dot.online { background: #23a55a; box-shadow: 0 0 8px #23a55a; }
-    .status-dot.idle { background: #f0b232; box-shadow: 0 0 8px #f0b232; }
-    .status-dot.dnd { background: #f23f43; box-shadow: 0 0 8px #f23f43; }
-    .status-dot.offline { background: #747f8d; }
-    .lanyard-status { font-size: 0.9rem; color: var(--text-muted); }
-    .lanyard-activity { margin-top: 0.5rem; font-size: 0.88rem; color: rgba(200, 210, 235, 0.65); }
-
-    .spotify-section { display: none; margin-top: 1.15rem; padding-top: 1.15rem; border-top: 1px solid rgba(255,255,255,0.06); align-items: center; gap: 0.95rem; }
-    .spotify-section.visible { display: flex; }
-    .spotify-art { width: 52px; height: 52px; border-radius: 9px; object-fit: cover; background: #111; }
-    .spotify-meta { flex: 1; min-width: 0; }
-    .spotify-label { font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: #1db954; }
-    .spotify-song { font-family: 'Space Grotesk', sans-serif; font-size: 0.98rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .spotify-artist { font-size: 0.82rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
     .badges { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 1.4rem; }
     .badges img { width: 88px; height: 31px; image-rendering: pixelated; }
+
+    /* Last.fm Recent Tracks */
+    .track-item {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.75rem 0.5rem;
+      margin: 0 -0.5rem;
+      border-radius: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      opacity: 0;
+      transform: translateY(14px);
+      animation: trackFadeIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      transition: background 0.25s ease, transform 0.25s ease;
+      cursor: default;
+    }
+    .track-item:hover {
+      background: rgba(255,255,255,0.04);
+      transform: translateX(4px);
+    }
+    .track-item:nth-child(1) { animation-delay: 0.06s; }
+    .track-item:nth-child(2) { animation-delay: 0.14s; }
+    .track-item:nth-child(3) { animation-delay: 0.22s; }
+    .track-item:nth-child(4) { animation-delay: 0.30s; }
+    .track-item:nth-child(5) { animation-delay: 0.38s; }
+    .track-item:last-child { border-bottom: none; }
+
+
+    @keyframes trackFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .track-art {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #111;
+      flex-shrink: 0;
+    }
+    .track-info { flex: 1; min-width: 0; }
+    .track-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .track-artist {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .track-time {
+      font-size: 0.72rem;
+      color: rgba(180,190,210,0.4);
+      flex-shrink: 0;
+    }
+    .now-playing-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      background: #1db954;
+      color: #000;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-weight: 600;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+
+    .loading-text {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      padding: 1.3rem 0;
+      animation: softPulse 1.8s ease-in-out infinite;
+    }
+
+
 
     .blog-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; margin-bottom: 0.45rem; font-weight: 600; }
     .blog-card p { color: var(--text-muted); font-size: 0.94rem; line-height: 1.55; margin-bottom: 0.7rem; }
@@ -145,15 +342,175 @@
 
     footer { text-align: center; padding: 3.8rem 1.4rem 3rem; color: rgba(255,255,255,0.2); font-size: 0.82rem; }
 
+    /* ========== Mobile Responsive Styles ========== */
+
+    /* Tablets and large phones */
     @media (max-width: 600px) {
-      .logo { font-size: 2.7rem; }
-      .avatar { width: 100px; height: 100px; }
-      .profile h2 { font-size: 1.55rem; }
+      .container {
+        padding: 0 1.1rem;
+      }
+
+      .hero {
+        padding: 2.8rem 1rem 4rem;
+      }
+
+      .logo {
+        font-size: 2.6rem;
+      }
+
+      .tagline {
+        font-size: 0.82rem;
+        margin-bottom: 2.4rem;
+      }
+
+      .nav-links {
+        gap: 0.75rem;
+      }
+
+      .nav-links a {
+        font-size: 0.95rem;
+        letter-spacing: 0.1em;
+      }
+
+      section {
+        padding: 3.2rem 0 1.2rem;
+      }
+
+      .section-title {
+        font-size: 0.88rem;
+        margin-bottom: 1.7rem;
+      }
+
+      .section-title::before,
+      .section-title::after {
+        width: 22px;
+        margin: 0 0.6rem;
+      }
+
+      /* Discord card on mobile */
+      .discord-banner {
+        height: 110px;
+      }
+
+      .discord-avatar {
+        width: 80px;
+        height: 80px;
+        border-width: 5px;
+      }
+
+      .discord-avatar-wrap {
+        margin-top: -42px;
+      }
+
+      .status-indicator {
+        width: 18px;
+        height: 18px;
+        border-width: 3.5px;
+        bottom: 3px;
+        right: 3px;
+      }
+
+      .discord-body {
+        padding: 0 1.15rem 1.2rem;
+      }
+
+      .discord-name {
+        font-size: 1.28rem;
+      }
+
+      .discord-status-text {
+        font-size: 0.88rem;
+      }
+
+      .discord-bio {
+        font-size: 0.97rem;
+      }
+
+      .social-item {
+        padding: 0.9rem 1.1rem;
+      }
+
+      .badges {
+        gap: 7px;
+        margin-top: 1.2rem;
+      }
+
+      .badges img {
+        width: 80px;
+        height: 28px;
+      }
+
+      footer {
+        padding: 3rem 1.2rem 2.6rem;
+      }
     }
+
+    /* Small phones */
+    @media (max-width: 400px) {
+      .container {
+        padding: 0 0.9rem;
+      }
+
+      .logo {
+        font-size: 2.35rem;
+      }
+
+      .hero {
+        padding: 2.4rem 0.85rem 3.5rem;
+      }
+
+      .discord-banner {
+        height: 95px;
+      }
+
+      .discord-avatar {
+        width: 72px;
+        height: 72px;
+      }
+
+      .discord-avatar-wrap {
+        margin-top: -38px;
+      }
+
+      .discord-name {
+        font-size: 1.18rem;
+      }
+
+      .section-title::before,
+      .section-title::after {
+        width: 16px;
+        margin: 0 0.45rem;
+      }
+
+      .badges img {
+        width: 74px;
+        height: 26px;
+      }
+    }
+
+    /* Desktop / larger screens */
     @media (min-width: 601px) {
-      .nav-links { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 1.5rem 2.2rem; }
+      .nav-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem 2.2rem;
+      }
+    }
+
+    /* Safe area support for notched phones (iPhone etc.) */
+    @supports (padding: max(0px)) {
+      body {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+      }
+      .hero {
+        padding-top: max(3.2rem, env(safe-area-inset-top));
+        padding-bottom: max(4.5rem, env(safe-area-inset-bottom));
+      }
     }
   </style>
+
 </head>
 <body>
 
@@ -168,68 +525,75 @@
     <div class="tagline hero-animate d1">he/him</div>
     <nav class="nav-links">
       <a href="#about" class="hero-animate d2">About Me</a>
-      <a href="#status" class="hero-animate d2">Status</a>
       <a href="#socials" class="hero-animate d3">Socials</a>
       <a href="#blog" class="hero-animate d3">Blog</a>
     </nav>
+
+
     <div class="scroll-hint hero-animate d4">Scroll down</div>
   </header>
 
   <main class="container">
+
+    <!-- ===== MERGED About Me + Status (Discord style) ===== -->
     <section id="about" class="reveal">
       <div class="section-title">About Me</div>
-      <div class="profile">
-        <!-- Same working method from yesterday -->
-        <img id="profileAvatar"
-             src="https://cdn.discordapp.com/avatars/426206662425051136/3854cb2792f754bd0c5c89a89d9c6c53.png?size=256"
-             class="avatar"
-             alt=""
-             onerror="this.src='https://cdn.discordapp.com/avatars/426206662425051136/3854cb2792f754bd0c5c89a89d9c6c53.png?size=256&t=' + Date.now()">
-        <h2>hey, i'm <span>KennyChan_</span></h2>
-        <p class="bio">I'm Weirdo Autistic.<br></p>
-        <div class="section-title" style="margin-top: 2.8rem;">Cool stuff</div>
-        <div class="badges">
-          <img src="https://88x31.nl/gifs/miku.gif" width="88" height="31">
-          <img src="https://88x31.nl/gifs/tummy.gif" width="88" height="31">
-          <img src="https://88x31.nl/gifs/cutesocks.gif" width="88" height="31">
-          <img src="https://88x31.nl/gifs/softcute.gif" width="88" height="31">
-          <img src="https://88x31.nl/gifs/thatwhitehand.png" width="88" height="31">
-          <img src="https://88x31.nl/gifs/taximals.gif" width="88" height="31">
+
+      <div class="discord-card">
+        <!-- BANNER: Change the background-image URL in CSS (.discord-banner) to your own image -->
+        <div class="discord-banner"></div>
+
+        <div class="discord-body">
+          <div class="discord-avatar-wrap">
+            <img id="profileAvatar"
+                 src="https://cdn.discordapp.com/avatars/426206662425051136/3854cb2792f754bd0c5c89a89d9c6c53.png?size=256"
+                 class="discord-avatar"
+                 alt="KennyChan_"
+                 onerror="this.src='https://cdn.discordapp.com/avatars/426206662425051136/3854cb2792f754bd0c5c89a89d9c6c53.png?size=256&t=' + Date.now()">
+            <div id="statusDot" class="status-indicator offline"></div>
+          </div>
+
+          <div class="discord-name" id="lanyardName">KennyChan_</div>
+          <div id="lanyardStatus" class="discord-status-text">Offline</div>
+
+          <p class="discord-bio">I'm Weirdo Autistic.</p>
+
+          <div id="lanyardActivity" class="discord-activity"></div>
+
+          <div id="spotifySection" class="spotify-section">
+            <img id="spotifyArt" class="spotify-art" src="" alt="">
+            <div class="spotify-meta">
+              <div class="spotify-label">Now Playing</div>
+              <div id="spotifySong" class="spotify-song">—</div>
+              <div id="spotifyArtist" class="spotify-artist">—</div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div class="section-title" style="margin-top: 2.2rem;">Cool stuff</div>
+      <div class="badges">
+        <img src="https://88x31.nl/gifs/miku.gif" width="88" height="31" alt="">
+        <img src="https://88x31.nl/gifs/tummy.gif" width="88" height="31" alt="">
+        <img src="https://88x31.nl/gifs/cutesocks.gif" width="88" height="31" alt="">
+        <img src="https://88x31.nl/gifs/softcute.gif" width="88" height="31" alt="">
+        <img src="https://88x31.nl/gifs/thatwhitehand.png" width="88" height="31" alt="">
+        <img src="https://88x31.nl/gifs/taximals.gif" width="88" height="31" alt="">
       </div>
     </section>
 
-    <section id="status" class="reveal">
-      <div class="section-title">Status</div>
-      <div class="card status-card">
-        <div class="lanyard-row">
-          <img id="lanyardAvatar"
-               src="https://cdn.discordapp.com/avatars/426206662425051136/3854cb2792f754bd0c5c89a89d9c6c53.png?size=128"
-               class="lanyard-avatar"
-               alt=""
-               onerror="this.src='https://cdn.discordapp.com/avatars/426206662425051136/3854cb2792f754bd0c5c89a89d9c6c53.png?size=128&t=' + Date.now()">
-          <div class="lanyard-info">
-            <div class="lanyard-name">
-              <span id="statusDot" class="status-dot offline"></span>
-              <span id="lanyardName">KennyChan_</span>
-            </div>
-            <div id="lanyardStatus" class="lanyard-status">Offline</div>
-            <div id="lanyardActivity" class="lanyard-activity" style="display:none;"></div>
-          </div>
-        </div>
-        <div id="spotifySection" class="spotify-section">
-          <img id="spotifyArt" class="spotify-art" src="" alt="">
-          <div class="spotify-meta">
-            <div class="spotify-label">Now Playing</div>
-            <div id="spotifySong" class="spotify-song">—</div>
-            <div id="spotifyArtist" class="spotify-artist">—</div>
-          </div>
-        </div>
+    <!-- Recently Played (Last.fm) -->
+    <section id="recent" class="reveal">
+      <div class="section-title">Recently Played</div>
+      <div class="card" id="lastfmTracks">
+        <div class="loading-text">Loading tracks...</div>
       </div>
+
     </section>
 
     <section id="socials" class="reveal">
       <div class="section-title">Find me here</div>
+
       <div class="social-list">
         <a href="https://github.com/kennychan17-exe" class="social-item" target="_blank">
           <div class="social-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></div>
@@ -298,7 +662,7 @@
       }, 70);
     })();
 
-    // Scroll reveal
+    // Scroll reveal animation (already working)
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -306,13 +670,13 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // ===== FIXED buildAvatarUrl (same method that worked yesterday) =====
+    // Fixed avatar URL builder
     function buildAvatarUrl(user, size) {
       if (!user || !user.avatar) {
-        return `https://cdn.discordapp.com/avatars/\( {DISCORD_ID}/3854cb2792f754bd0c5c89a89d9c6c53.png?size= \){size}`;
+        return `https://cdn.discordapp.com/avatars/${DISCORD_ID}/3854cb2792f754bd0c5c89a89d9c6c53.png?size=${size}`;
       }
       const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
-      return `https://cdn.discordapp.com/avatars/\( {user.id}/ \){user.avatar}.\( {ext}?size= \){size}`;
+      return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=${size}`;
     }
 
     function updatePresence(data) {
@@ -323,16 +687,15 @@
       const displayName = user.global_name || user.username || 'KennyChan_';
 
       const profileImg = document.getElementById('profileAvatar');
-      const lanyardImg = document.getElementById('lanyardAvatar');
-
       if (profileImg) profileImg.src = buildAvatarUrl(user, 256);
-      if (lanyardImg) lanyardImg.src = buildAvatarUrl(user, 128);
 
       document.getElementById('lanyardName').textContent = displayName;
       document.getElementById('lanyardStatus').textContent = {
         online: 'Online', idle: 'Idle', dnd: 'Do Not Disturb', offline: 'Offline'
       }[status] || status;
-      document.getElementById('statusDot').className = 'status-dot ' + status;
+
+      const statusDot = document.getElementById('statusDot');
+      if (statusDot) statusDot.className = 'status-indicator ' + status;
 
       const activityEl = document.getElementById('lanyardActivity');
       const activities = data.activities || [];
@@ -379,6 +742,74 @@
         if (msg.t === 'INIT_STATE' || msg.t === 'PRESENCE_UPDATE') updatePresence(msg.d);
       };
     } catch (e) {}
+
+    // ===== Last.fm Recently Played =====
+    const LASTFM_USER = 'kennychan17';
+    const LASTFM_API_KEY = 'dde54984a86bfb046980fe8b5dd70a7f';
+
+    function timeAgo(uts) {
+      if (!uts) return '';
+      const seconds = Math.floor(Date.now() / 1000) - parseInt(uts);
+      if (seconds < 60) return 'just now';
+      if (seconds < 3600) return Math.floor(seconds / 60) + 'm ago';
+      if (seconds < 86400) return Math.floor(seconds / 3600) + 'h ago';
+      return Math.floor(seconds / 86400) + 'd ago';
+    }
+
+    async function fetchLastfm() {
+      const container = document.getElementById('lastfmTracks');
+      if (!container) return;
+
+      try {
+        const res = await fetch(
+          `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LASTFM_USER}&api_key=${LASTFM_API_KEY}&format=json&limit=5`
+        );
+        const data = await res.json();
+
+        if (!data.recenttracks || !data.recenttracks.track) {
+          container.innerHTML = '<div class="loading-text">No recent tracks found</div>';
+
+          return;
+        }
+
+        const tracks = Array.isArray(data.recenttracks.track)
+          ? data.recenttracks.track
+          : [data.recenttracks.track];
+
+        let html = '';
+        tracks.forEach(track => {
+          const isNowPlaying = track['@attr'] && track['@attr'].nowplaying === 'true';
+          const art = (track.image && track.image[1] && track.image[1]['#text'])
+            ? track.image[1]['#text']
+            : '';
+          const name = track.name || 'Unknown';
+          const artist = (track.artist && (track.artist['#text'] || track.artist.name)) || 'Unknown';
+          const time = isNowPlaying
+            ? '<span class="now-playing-badge">Now</span>'
+            : timeAgo(track.date && track.date.uts);
+
+          html += `
+            <div class="track-item">
+              <img class="track-art" src="${art || 'https://via.placeholder.com/48/111/333?text=♪'}" alt="" onerror="this.src='https://via.placeholder.com/48/111/333?text=♪'">
+              <div class="track-info">
+                <div class="track-name">${name}</div>
+                <div class="track-artist">${artist}</div>
+              </div>
+              <div class="track-time">${time}</div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      } catch (e) {
+        container.innerHTML = '<div class="loading-text">Could not load tracks</div>';
+
+      }
+    }
+
+    fetchLastfm();
+    setInterval(fetchLastfm, 60000); // refresh every 60 seconds
   </script>
+
 </body>
 </html>
