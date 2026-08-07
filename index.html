@@ -107,7 +107,6 @@
       background: rgba(255,255,255,0.1); vertical-align: middle; margin: 0 0.85rem;
     }
 
-    /* Section header with refresh button */
     .section-header {
       display: flex;
       align-items: center;
@@ -115,35 +114,20 @@
       gap: 0.75rem;
       margin-bottom: 2.1rem;
     }
-    .section-header .section-title {
-      margin-bottom: 0;
-    }
+    .section-header .section-title { margin-bottom: 0; }
     .refresh-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      flex-shrink: 0;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted); display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.25s ease; flex-shrink: 0;
     }
     .refresh-btn:hover {
       background: rgba(196, 181, 253, 0.15);
       border-color: rgba(196, 181, 253, 0.35);
       color: #c4b5fd;
     }
-    .refresh-btn.spinning svg {
-      animation: spin 0.8s linear infinite;
-    }
-    .refresh-btn svg {
-      width: 16px;
-      height: 16px;
-    }
+    .refresh-btn.spinning svg { animation: spin 0.8s linear infinite; }
+    .refresh-btn svg { width: 16px; height: 16px; }
 
     #about, #recent, #socials, #blog {
       scroll-margin-top: 1.5rem;
@@ -202,7 +186,13 @@
       transform: translateY(-50%) rotate(45deg);
     }
 
-    .discord-name-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.15rem; flex-wrap: wrap; }
+    .discord-name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-bottom: 0.15rem;
+      flex-wrap: wrap;
+    }
     .discord-name {
       font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700;
       letter-spacing: -0.02em;
@@ -210,6 +200,29 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       text-shadow: 0 0 20px rgba(167, 139, 250, 0.25);
     }
+
+    /* Clan tag next to name */
+    .clan-tag {
+      display: none;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(88, 101, 242, 0.18);
+      border: 1px solid rgba(88, 101, 242, 0.35);
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem 0.15rem 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #c9cdfb;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+    .clan-tag img {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      object-fit: cover;
+    }
+
     .discord-username { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.55rem; }
     .discord-username span { color: rgba(220, 220, 230, 0.7); }
     .discord-activity { font-size: 0.88rem; color: rgba(200, 210, 235, 0.65); margin-bottom: 0.5rem; display: none; }
@@ -292,35 +305,18 @@
     }
 
     .lastfm-loading {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      padding: 2.2rem 1rem;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1rem; padding: 2.2rem 1rem;
     }
     .lastfm-spinner {
-      width: 28px;
-      height: 28px;
+      width: 28px; height: 28px;
       border: 2.5px solid rgba(196, 181, 253, 0.2);
-      border-top-color: #c4b5fd;
-      border-radius: 50%;
+      border-top-color: #c4b5fd; border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    .lastfm-loading-text {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      letter-spacing: 0.02em;
-    }
-    .lastfm-empty {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      padding: 1.8rem 1rem;
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .lastfm-loading-text { font-size: 0.9rem; color: var(--text-muted); letter-spacing: 0.02em; }
+    .lastfm-empty { text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 1.8rem 1rem; }
 
     .blog-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; margin-bottom: 0.45rem; font-weight: 600; }
     .blog-card p { color: var(--text-muted); font-size: 0.94rem; line-height: 1.55; margin-bottom: 0.7rem; }
@@ -349,9 +345,7 @@
       transition: all 0.25s ease;
     }
     .bottom-nav-btn svg { width: 20px; height: 20px; transition: transform 0.25s ease; }
-    .bottom-nav-btn.active {
-      color: #c4b5fd; background: rgba(196, 181, 253, 0.12);
-    }
+    .bottom-nav-btn.active { color: #c4b5fd; background: rgba(196, 181, 253, 0.12); }
     .bottom-nav-btn.active svg { transform: scale(1.1); }
 
     @media (max-width: 600px) {
@@ -439,6 +433,7 @@
           <div id="customStatusBubble" class="custom-status-bubble"></div>
           <div class="discord-name-row">
             <div class="discord-name" id="lanyardName">KennyChan</div>
+            <div id="clanTag" class="clan-tag"></div>
           </div>
           <div class="discord-username">
             <span id="lanyardUsername">ballknowledge17</span> · Atheist
@@ -467,7 +462,6 @@
       </div>
     </section>
 
-    <!-- ========== RECENTLY PLAYED with Refresh Button ========== -->
     <section id="recent" class="reveal">
       <div class="section-header">
         <div class="section-title">Recently Played</div>
@@ -519,7 +513,7 @@
       </article>
       <article class="card blog-card">
         <h3>ADHD</h3>
-        <p>I have hyperactivity disorder \~ ADHD I get distracted so easily.</p>
+        <p>I have hyperactivity disorder \\~ ADHD I get distracted so easily.</p>
         <div class="blog-meta">Overthinking</div>
       </article>
       <article class="card blog-card">
@@ -558,7 +552,7 @@
   <script>
     const DISCORD_ID = '426206662425051136';
 
-    // Loader - locked
+    // Loader
     (function() {
       const loader = document.getElementById('loader');
       const percentEl = document.getElementById('loaderPercent');
@@ -642,10 +636,10 @@
     // Lanyard
     function buildAvatarUrl(user, size) {
       if (!user || !user.avatar) {
-        return `https://cdn.discordapp.com/avatars/\( {DISCORD_ID}/3854cb2792f754bd0c5c89a89d9c6c53.png?size= \){size}`;
+        return "https://cdn.discordapp.com/avatars/" + DISCORD_ID + "/3854cb2792f754bd0c5c89a89d9c6c53.png?size=" + size;
       }
       const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
-      return `https://cdn.discordapp.com/avatars/\( {user.id}/ \){user.avatar}.\( {ext}?size= \){size}`;
+      return "https://cdn.discordapp.com/avatars/" + user.id + "/" + user.avatar + "." + ext + "?size=" + size;
     }
 
     function renderBadges(user) {
@@ -653,20 +647,26 @@
       if (!container) return;
       container.innerHTML = '';
 
-      if (user.primary_guild && user.primary_guild.identity_enabled && user.primary_guild.tag) {
-        const guild = user.primary_guild;
-        const badgeUrl = guild.badge
-          ? `https://cdn.discordapp.com/clan-badges/\( {guild.identity_guild_id}/ \){guild.badge}.png?size=16`
-          : null;
-        const el = document.createElement('div');
-        el.className = 'discord-badge';
-        el.title = 'Server Tag';
-        el.innerHTML = badgeUrl
-          ? `<img src="${badgeUrl}" alt="" onerror="this.style.display='none'"> ${guild.tag}`
-          : guild.tag;
-        container.appendChild(el);
+      // Clan tag next to name
+      const clanEl = document.getElementById('clanTag');
+      if (clanEl) {
+        if (user.primary_guild && user.primary_guild.identity_enabled && user.primary_guild.tag) {
+          const guild = user.primary_guild;
+          const badgeUrl = guild.badge
+            ? "https://cdn.discordapp.com/clan-badges/" + guild.identity_guild_id + "/" + guild.badge + ".png?size=16"
+            : null;
+
+          clanEl.innerHTML = badgeUrl
+            ? '<img src="' + badgeUrl + '" alt="" onerror="this.style.display=\'none\'"> ' + guild.tag
+            : guild.tag;
+          clanEl.style.display = 'inline-flex';
+        } else {
+          clanEl.innerHTML = '';
+          clanEl.style.display = 'none';
+        }
       }
 
+      // Other badges below
       const flags = user.public_flags || 0;
       const badgeMap = [
         { bit: 1 << 0, name: 'Staff' },
@@ -714,7 +714,7 @@
       if (decoEl) {
         const deco = user.avatar_decoration_data;
         if (deco && deco.asset) {
-          decoEl.src = `https://cdn.discordapp.com/avatar-decoration-presets/${deco.asset}.png?size=160&passthrough=true`;
+          decoEl.src = "https://cdn.discordapp.com/avatar-decoration-presets/" + deco.asset + ".png?size=160&passthrough=true";
           decoEl.classList.add('visible');
         } else {
           decoEl.src = '';
@@ -745,7 +745,7 @@
       const playing = activities.find(a => [0,1,2,3,5].includes(a.type));
       if (playing) {
         activityEl.style.display = 'block';
-        activityEl.textContent = playing.details ? `${playing.name} — ${playing.details}` : playing.name;
+        activityEl.textContent = playing.details ? playing.name + " — " + playing.details : playing.name;
       } else {
         activityEl.style.display = 'none';
       }
@@ -763,7 +763,7 @@
 
     async function fetchLanyard() {
       try {
-        const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
+        const res = await fetch("https://api.lanyard.rest/v1/users/" + DISCORD_ID);
         const json = await res.json();
         if (json.success) updatePresence(json.data);
       } catch (e) {}
@@ -780,7 +780,7 @@
       };
     } catch (e) {}
 
-    // ===== Last.fm + Refresh Button =====
+    // ===== Last.fm =====
     const LASTFM_USER = 'kennychan17';
     const LASTFM_API_KEY = 'dde54984a86bfb046980fe8b5dd70a7f';
 
@@ -809,13 +809,13 @@
       if (!container) return;
 
       try {
-       const res = await fetch(
-          `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=\( {LASTFM_USER}&api_key= \){LASTFM_API_KEY}&format=json&limit=5`
+        const res = await fetch(
+          "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=" + LASTFM_USER + "&api_key=" + LASTFM_API_KEY + "&format=json&limit=5"
         );
         const data = await res.json();
 
         if (!data.recenttracks || !data.recenttracks.track) {
-          container.innerHTML = `<div class="lastfm-empty">No recent tracks found</div>`;
+          container.innerHTML = '<div class="lastfm-empty">No recent tracks found</div>';
           return;
         }
 
@@ -849,11 +849,11 @@
 
         container.innerHTML = html;
       } catch (e) {
-        container.innerHTML = `<div class="lastfm-empty">Could not load tracks</div>`;
+        console.error(e);
+        container.innerHTML = '<div class="lastfm-empty">Could not load tracks</div>';
       }
     }
 
-    // Refresh button
     const refreshBtn = document.getElementById('refreshLastfm');
     if (refreshBtn) {
       refreshBtn.addEventListener('click', () => {
@@ -865,7 +865,6 @@
       });
     }
 
-    // Initial load + auto refresh every 30 seconds
     showLastfmLoading();
     fetchLastfm();
     setInterval(fetchLastfm, 30000);
