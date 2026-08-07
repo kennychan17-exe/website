@@ -6,6 +6,9 @@ https://kennychan.vercel.app/
 TYSM! 
 
 current progress for my website 
+
 ✅ recent tracks 
+
 ✅ fixed small errors and bugs
+
 ✅ fixed discord user server tags icon 
