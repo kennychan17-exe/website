@@ -25,7 +25,13 @@
       overflow-x: hidden;
       min-height: 100vh; min-height: 100dvh;
       -webkit-font-smoothing: antialiased;
-      padding-bottom: 90px; /* space for bottom nav */
+      padding-bottom: 90px;
+    }
+
+    html.loading, body.loading {
+      overflow: hidden !important;
+      height: 100% !important;
+      touch-action: none;
     }
 
     #loader {
@@ -34,52 +40,40 @@
       transition: opacity 0.7s ease, visibility 0.7s ease, transform 0.7s ease;
     }
     #loader.hide {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transform: scale(1.05);
+      opacity: 0; visibility: hidden; pointer-events: none; transform: scale(1.05);
     }
     .loader-logo {
       font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; font-weight: 700;
       background: linear-gradient(135deg, #fff 20%, #c4b5fd 70%, #93c5fd 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       animation: logoIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      opacity: 0;
-      transform: translateY(18px) scale(0.95);
+      opacity: 0; transform: translateY(18px) scale(0.95);
     }
-    @keyframes logoIn {
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
+    @keyframes logoIn { to { opacity: 1; transform: translateY(0) scale(1); } }
     .loader-percent {
       font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; color: rgba(255,255,255,0.45);
-      animation: fadeInDelay 0.6s ease 0.3s forwards;
-      opacity: 0;
+      animation: fadeInDelay 0.6s ease 0.3s forwards; opacity: 0;
     }
     .loader-bar {
       width: 130px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;
-      animation: fadeInDelay 0.6s ease 0.4s forwards;
-      opacity: 0;
+      animation: fadeInDelay 0.6s ease 0.4s forwards; opacity: 0;
     }
     .loader-bar-fill {
       height: 100%; width: 0%;
       background: linear-gradient(90deg, #c4b5fd, #93c5fd);
-      border-radius: 4px;
-      transition: width 0.12s linear;
+      border-radius: 4px; transition: width 0.12s linear;
     }
-    @keyframes fadeInDelay {
-      to { opacity: 1; }
-    }
+    @keyframes fadeInDelay { to { opacity: 1; } }
 
     .reveal { opacity: 0; transform: translateY(32px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
     .hero-animate { opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-    .d1 { animation-delay: 0.12s; } .d2 { animation-delay: 0.24s; } .d3 { animation-delay: 0.36s; } .d4 { animation-delay: 0.48s; }
+    .d1 { animation-delay: 0.12s; } .d2 { animation-delay: 0.24s; }
 
     .container { max-width: 700px; margin: 0 auto; padding: 0 1.35rem; }
 
-    /* ===== HERO ===== */
     .hero {
       min-height: 100vh; min-height: 100dvh;
       display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
@@ -93,13 +87,9 @@
       margin-bottom: 0.55rem;
     }
     .pronouns {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      letter-spacing: 0.03em;
-      margin-bottom: 2.8rem;
-      font-weight: 400;
+      font-size: 1.05rem; color: var(--text-muted); letter-spacing: 0.03em;
+      margin-bottom: 2.8rem; font-weight: 400;
     }
-
     .scroll-hint {
       position: absolute; bottom: 2.8rem; left: 50%; transform: translateX(-50%);
       font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.28);
@@ -107,250 +97,156 @@
     }
     @keyframes softPulse { 0%, 100% { opacity: 0.28; } 50% { opacity: 0.6; } }
 
-    section { padding: 4.2rem 0 1.6rem; }
+    section { padding: 4.2rem 0 2.8rem; }
     .section-title {
-      font-size: 0.95rem;
-      letter-spacing: 0.04em;
-      color: var(--text-muted);
-      text-align: center;
-      margin-bottom: 2.1rem;
-      font-weight: 500;
+      font-size: 0.95rem; letter-spacing: 0.04em; color: var(--text-muted);
+      text-align: center; margin-bottom: 2.1rem; font-weight: 500;
     }
     .section-title::before, .section-title::after {
       content: ''; display: inline-block; width: 32px; height: 1px;
       background: rgba(255,255,255,0.1); vertical-align: middle; margin: 0 0.85rem;
     }
 
-    /* ===== Discord-style Profile Card (matched to screenshot) ===== */
+    /* Section header with refresh button */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2.1rem;
+    }
+    .section-header .section-title {
+      margin-bottom: 0;
+    }
+    .refresh-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+    }
+    .refresh-btn:hover {
+      background: rgba(196, 181, 253, 0.15);
+      border-color: rgba(196, 181, 253, 0.35);
+      color: #c4b5fd;
+    }
+    .refresh-btn.spinning svg {
+      animation: spin 0.8s linear infinite;
+    }
+    .refresh-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    #about, #recent, #socials, #blog {
+      scroll-margin-top: 1.5rem;
+      scroll-margin-bottom: 5rem;
+    }
+
     .discord-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(18px);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      overflow: hidden;
-      margin-bottom: 1.4rem;
+      background: var(--card-bg); backdrop-filter: blur(18px);
+      border: 1px solid var(--card-border); border-radius: 16px;
+      overflow: hidden; margin-bottom: 1.4rem;
       box-shadow: 0 12px 40px rgba(0,0,0,0.45);
     }
-
     .discord-banner {
-      height: 140px;
-      width: 100%;
-      background-color: #1a1a1e;
+      height: 140px; width: 100%; background-color: #1a1a1e;
       background-image: url('https://raw.githubusercontent.com/kennychan17-exe/website/refs/heads/main/31935d65e1364ed5a81720e92d09c9bc.jpg');
-      background-size: cover;
-      background-position: center;
-      position: relative;
+      background-size: cover; background-position: center; position: relative;
     }
-
-    .discord-body {
-      position: relative;
-      padding: 0 1.35rem 1.25rem;
-    }
-
+    .discord-body { position: relative; padding: 0 1.35rem 1.25rem; }
     .discord-avatar-wrap {
-      position: relative;
-      margin-top: -52px;
-      margin-bottom: 0.9rem;
-      width: 108px;
-      height: 108px;
+      position: relative; margin-top: -52px; margin-bottom: 0.9rem;
+      width: 108px; height: 108px;
     }
-
     .discord-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 6px solid #101010;
-      background: #111;
-      display: block;
+      width: 96px; height: 96px; border-radius: 50%; object-fit: cover;
+      border: 6px solid #101010; background: #111; display: block;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-      position: absolute;
-      top: 6px;
-      left: 6px;
-      z-index: 1;
+      position: absolute; top: 6px; left: 6px; z-index: 1;
     }
-
-    /* Discord avatar decoration (frame) */
     .avatar-decoration {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 108px;
-      height: 108px;
-      pointer-events: none;
-      z-index: 2;
-      display: none;
+      position: absolute; top: 0; left: 0; width: 108px; height: 108px;
+      pointer-events: none; z-index: 2; display: none;
     }
-    .avatar-decoration.visible {
-      display: block;
-    }
-
+    .avatar-decoration.visible { display: block; }
     .status-indicator {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 4px solid #101010;
-      background: #747f8d;
-      z-index: 3;
+      position: absolute; bottom: 8px; right: 8px; width: 24px; height: 24px;
+      border-radius: 50%; border: 4px solid #101010; background: #747f8d; z-index: 3;
     }
     .status-indicator.online { background: #23a55a; }
     .status-indicator.idle { background: #f0b232; }
     .status-indicator.dnd { background: #f23f43; }
     .status-indicator.offline { background: #747f8d; }
 
-    /* Custom status bubble like "Weirdo" */
     .custom-status-bubble {
-      position: absolute;
-      left: 108px;
-      top: 18px;
-      background: #1e1f22;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 0.4rem 0.85rem;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #fff;
-      white-space: nowrap;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-      display: none;
-      z-index: 2;
+      position: absolute; left: 108px; top: 18px;
+      background: #1e1f22; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 0.4rem 0.85rem; font-size: 0.95rem;
+      font-weight: 500; color: #fff; white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4); display: none; z-index: 2;
     }
-    .custom-status-bubble.visible {
-      display: block;
-    }
+    .custom-status-bubble.visible { display: block; }
     .custom-status-bubble::before {
-      content: '';
-      position: absolute;
-      left: -6px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 12px;
-      height: 12px;
-      background: #1e1f22;
+      content: ''; position: absolute; left: -6px; top: 50%;
+      width: 12px; height: 12px; background: #1e1f22;
       border-left: 1px solid rgba(255,255,255,0.08);
       border-bottom: 1px solid rgba(255,255,255,0.08);
       transform: translateY(-50%) rotate(45deg);
     }
 
-    .discord-name-row {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.15rem;
-      flex-wrap: wrap;
-    }
-
+    .discord-name-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.15rem; flex-wrap: wrap; }
     .discord-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700;
       letter-spacing: -0.02em;
       background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 50%, #93c5fd 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      /* pixel-ish feel */
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       text-shadow: 0 0 20px rgba(167, 139, 250, 0.25);
     }
+    .discord-username { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.55rem; }
+    .discord-username span { color: rgba(220, 220, 230, 0.7); }
+    .discord-activity { font-size: 0.88rem; color: rgba(200, 210, 235, 0.65); margin-bottom: 0.5rem; display: none; }
 
-    .discord-username {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: 0.55rem;
-    }
-    .discord-username span {
-      color: rgba(220, 220, 230, 0.7);
-    }
-
-    .discord-bio {
-      font-size: 1.02rem;
-      color: rgba(210, 210, 220, 0.75);
-      line-height: 1.55;
-      margin-bottom: 0.7rem;
-    }
-
-    .discord-activity {
-      font-size: 0.88rem;
-      color: rgba(200, 210, 235, 0.65);
-      margin-bottom: 0.5rem;
-      display: none;
-    }
-
-    /* Real Discord badges / Server Tag */
     .profile-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin: 0.55rem 0 0.35rem;
-      align-items: center;
-      min-height: 26px;
+      display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.55rem 0 0.35rem;
+      align-items: center; min-height: 26px;
     }
     .discord-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      background: rgba(88, 101, 242, 0.18);
-      border: 1px solid rgba(88, 101, 242, 0.35);
-      border-radius: 4px;
-      padding: 0.18rem 0.5rem 0.18rem 0.28rem;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #c9cdfb;
-      letter-spacing: 0.02em;
-      line-height: 1;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: rgba(88, 101, 242, 0.18); border: 1px solid rgba(88, 101, 242, 0.35);
+      border-radius: 4px; padding: 0.18rem 0.5rem 0.18rem 0.28rem;
+      font-size: 0.78rem; font-weight: 600; color: #c9cdfb; letter-spacing: 0.02em; line-height: 1;
     }
-    .discord-badge img {
-      width: 16px;
-      height: 16px;
-      border-radius: 3px;
-      object-fit: cover;
-    }
-    .discord-badge.nitro {
-      background: rgba(246, 135, 179, 0.15);
-      border-color: rgba(246, 135, 179, 0.35);
-      color: #f6a9c8;
-    }
-    .discord-badge.hypesquad {
-      background: rgba(255, 115, 70, 0.15);
-      border-color: rgba(255, 115, 70, 0.35);
-      color: #ff9b7a;
-    }
-    .discord-badge.early {
-      background: rgba(255, 200, 60, 0.12);
-      border-color: rgba(255, 200, 60, 0.3);
-      color: #ffd56a;
-    }
+    .discord-badge img { width: 16px; height: 16px; border-radius: 3px; object-fit: cover; }
+    .discord-badge.nitro { background: rgba(246, 135, 179, 0.15); border-color: rgba(246, 135, 179, 0.35); color: #f6a9c8; }
+    .discord-badge.hypesquad { background: rgba(255, 115, 70, 0.15); border-color: rgba(255, 115, 70, 0.35); color: #ff9b7a; }
+    .discord-badge.early { background: rgba(255, 200, 60, 0.12); border-color: rgba(255, 200, 60, 0.3); color: #ffd56a; }
 
     .spotify-section {
-      display: none;
-      margin-top: 0.9rem;
-      padding-top: 0.95rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      align-items: center;
-      gap: 0.95rem;
+      display: none; margin-top: 0.9rem; padding-top: 0.95rem;
+      border-top: 1px solid rgba(255,255,255,0.06); align-items: center; gap: 0.95rem;
     }
     .spotify-section.visible { display: flex; }
-    .spotify-art {
-      width: 52px; height: 52px; border-radius: 9px; object-fit: cover; background: #111;
-    }
+    .spotify-art { width: 52px; height: 52px; border-radius: 9px; object-fit: cover; background: #111; }
     .spotify-meta { flex: 1; min-width: 0; }
-    .spotify-label {
-      font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: #1db954;
-    }
+    .spotify-label { font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: #1db954; }
     .spotify-song {
       font-family: 'Space Grotesk', sans-serif; font-size: 0.98rem; font-weight: 600;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .spotify-artist {
-      font-size: 0.82rem; color: var(--text-muted);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
+    .spotify-artist { font-size: 0.82rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
     .card {
       background: var(--card-bg); backdrop-filter: blur(18px);
-      border: 1px solid var(--card-border); border-radius: 16px; padding: 1.3rem 1.4rem; margin-bottom: 0.9rem;
+      border: 1px solid var(--card-border); border-radius: 16px;
+      padding: 1.3rem 1.4rem; margin-bottom: 0.9rem;
     }
     .social-list { display: flex; flex-direction: column; gap: 0.55rem; }
     .social-item {
@@ -365,86 +261,65 @@
     .badges { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 1.4rem; }
     .badges img { width: 88px; height: 31px; image-rendering: pixelated; }
 
-    /* Last.fm Recent Tracks */
     .track-item {
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-      padding: 0.75rem 0.5rem;
-      margin: 0 -0.5rem;
-      border-radius: 10px;
+      display: flex; align-items: center; gap: 0.9rem;
+      padding: 0.75rem 0.5rem; margin: 0 -0.5rem; border-radius: 10px;
       border-bottom: 1px solid rgba(255,255,255,0.05);
-      opacity: 0;
-      transform: translateY(14px);
+      opacity: 0; transform: translateY(14px);
       animation: trackFadeIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
       transition: background 0.25s ease, transform 0.25s ease;
-      cursor: default;
     }
-    .track-item:hover {
-      background: rgba(255,255,255,0.04);
-      transform: translateX(4px);
-    }
+    .track-item:hover { background: rgba(255,255,255,0.04); transform: translateX(4px); }
     .track-item:nth-child(1) { animation-delay: 0.06s; }
     .track-item:nth-child(2) { animation-delay: 0.14s; }
     .track-item:nth-child(3) { animation-delay: 0.22s; }
     .track-item:nth-child(4) { animation-delay: 0.30s; }
     .track-item:nth-child(5) { animation-delay: 0.38s; }
     .track-item:last-child { border-bottom: none; }
+    @keyframes trackFadeIn { to { opacity: 1; transform: translateY(0); } }
 
-    @keyframes trackFadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .track-art {
-      width: 48px;
-      height: 48px;
-      border-radius: 8px;
-      object-fit: cover;
-      background: #111;
-      flex-shrink: 0;
-    }
+    .track-art { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; background: #111; flex-shrink: 0; }
     .track-info { flex: 1; min-width: 0; }
     .track-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 600;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .track-artist {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .track-time {
-      font-size: 0.72rem;
-      color: rgba(180,190,210,0.4);
-      flex-shrink: 0;
-    }
+    .track-artist { font-size: 0.82rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .track-time { font-size: 0.72rem; color: rgba(180,190,210,0.4); flex-shrink: 0; }
     .now-playing-badge {
-      display: inline-block;
-      font-size: 0.65rem;
-      background: #1db954;
-      color: #000;
-      padding: 0.15rem 0.4rem;
-      border-radius: 4px;
-      font-weight: 600;
-      margin-left: 0.4rem;
-      vertical-align: middle;
+      display: inline-block; font-size: 0.65rem; background: #1db954; color: #000;
+      padding: 0.15rem 0.4rem; border-radius: 4px; font-weight: 600; margin-left: 0.4rem;
     }
 
-    .loading-text {
+    .lastfm-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 2.2rem 1rem;
+    }
+    .lastfm-spinner {
+      width: 28px;
+      height: 28px;
+      border: 2.5px solid rgba(196, 181, 253, 0.2);
+      border-top-color: #c4b5fd;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .lastfm-loading-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+    .lastfm-empty {
       text-align: center;
       color: var(--text-muted);
       font-size: 0.9rem;
-      padding: 1.3rem 0;
-      animation: softPulse 1.8s ease-in-out infinite;
+      padding: 1.8rem 1rem;
     }
 
     .blog-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; margin-bottom: 0.45rem; font-weight: 600; }
@@ -453,71 +328,41 @@
 
     footer { text-align: center; padding: 3.8rem 1.4rem 3rem; color: rgba(255,255,255,0.2); font-size: 0.82rem; }
 
-    /* ===== Bottom Floating Navigation ===== */
     .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: center;
-      padding: 0.7rem 1rem 1.1rem;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: center; padding: 0.7rem 1rem 1.1rem;
       background: linear-gradient(to top, rgba(0,0,0,0.95) 40%, transparent);
       pointer-events: none;
     }
     .bottom-nav-inner {
-      display: flex;
-      gap: 0.4rem;
-      background: rgba(18, 18, 20, 0.92);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 999px;
-      padding: 0.4rem;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      display: flex; gap: 0.4rem;
+      background: rgba(18, 18, 20, 0.92); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 999px;
+      padding: 0.4rem; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
       pointer-events: auto;
     }
     .bottom-nav-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.15rem;
-      width: 64px;
-      height: 52px;
-      border-radius: 999px;
-      color: rgba(200, 200, 210, 0.55);
-      text-decoration: none;
-      font-size: 0.62rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.15rem; width: 64px; height: 52px; border-radius: 999px;
+      color: rgba(200, 200, 210, 0.55); text-decoration: none;
+      font-size: 0.62rem; font-weight: 500; letter-spacing: 0.02em;
       transition: all 0.25s ease;
     }
-    .bottom-nav-btn svg {
-      width: 20px;
-      height: 20px;
-      transition: transform 0.25s ease;
-    }
-    .bottom-nav-btn:hover,
+    .bottom-nav-btn svg { width: 20px; height: 20px; transition: transform 0.25s ease; }
     .bottom-nav-btn.active {
-      color: #c4b5fd;
-      background: rgba(196, 181, 253, 0.12);
+      color: #c4b5fd; background: rgba(196, 181, 253, 0.12);
     }
-    .bottom-nav-btn:hover svg,
-    .bottom-nav-btn.active svg {
-      transform: scale(1.1);
-    }
+    .bottom-nav-btn.active svg { transform: scale(1.1); }
 
-    /* ========== Mobile Responsive Styles ========== */
     @media (max-width: 600px) {
       .container { padding: 0 1.1rem; }
       .hero { padding: 2.8rem 1rem 5rem; }
       .logo { font-size: 2.6rem; }
       .pronouns { font-size: 0.95rem; margin-bottom: 2.2rem; }
-      section { padding: 3.2rem 0 1.2rem; }
+      section { padding: 3.2rem 0 2.4rem; }
       .section-title { font-size: 0.88rem; margin-bottom: 1.7rem; }
       .section-title::before, .section-title::after { width: 22px; margin: 0 0.6rem; }
-
+      .section-header { margin-bottom: 1.7rem; }
       .discord-banner { height: 110px; }
       .discord-avatar-wrap { width: 96px; height: 96px; margin-top: -44px; }
       .discord-avatar { width: 84px; height: 84px; border-width: 5px; top: 6px; left: 6px; }
@@ -527,12 +372,10 @@
       .discord-body { padding: 0 1.15rem 1.15rem; }
       .discord-name { font-size: 1.32rem; }
       .discord-username { font-size: 0.9rem; }
-
       .social-item { padding: 0.9rem 1.1rem; }
       .badges { gap: 7px; margin-top: 1.2rem; }
       .badges img { width: 80px; height: 28px; }
       footer { padding: 3rem 1.2rem 2.6rem; }
-
       .bottom-nav-btn { width: 58px; height: 48px; font-size: 0.58rem; }
       .bottom-nav-btn svg { width: 18px; height: 18px; }
     }
@@ -559,12 +402,8 @@
         padding-right: max(0px, env(safe-area-inset-right));
         padding-bottom: max(90px, calc(70px + env(safe-area-inset-bottom)));
       }
-      .hero {
-        padding-top: max(3.2rem, env(safe-area-inset-top));
-      }
-      .bottom-nav {
-        padding-bottom: max(1.1rem, env(safe-area-inset-bottom));
-      }
+      .hero { padding-top: max(3.2rem, env(safe-area-inset-top)); }
+      .bottom-nav { padding-bottom: max(1.1rem, env(safe-area-inset-bottom)); }
     }
   </style>
 </head>
@@ -579,46 +418,33 @@
   <header class="hero">
     <div class="logo hero-animate">KennyChan_</div>
     <div class="pronouns hero-animate d1">He/Him</div>
-
     <div class="scroll-hint hero-animate d2">Scroll down</div>
   </header>
 
   <main class="container">
 
-    <!-- ===== About Me (Discord style matched to screenshot) ===== -->
     <section id="about" class="reveal">
       <div class="section-title">About Me</div>
-
       <div class="discord-card">
         <div class="discord-banner"></div>
-
         <div class="discord-body">
           <div class="discord-avatar-wrap">
             <img id="profileAvatar"
                  src="https://cdn.discordapp.com/avatars/426206662425051136/3854cb2792f754bd0c5c89a89d9c6c53.png?size=256"
-                 class="discord-avatar"
-                 alt="KennyChan_"
+                 class="discord-avatar" alt="KennyChan_"
                  onerror="this.src='https://cdn.discordapp.com/avatars/426206662425051136/3854cb2792f754bd0c5c89a89d9c6c53.png?size=256&t=' + Date.now()">
             <img id="avatarDecoration" class="avatar-decoration" src="" alt="">
             <div id="statusDot" class="status-indicator offline"></div>
           </div>
-
-          <!-- Custom status bubble (like "Weirdo") -->
           <div id="customStatusBubble" class="custom-status-bubble"></div>
-
           <div class="discord-name-row">
             <div class="discord-name" id="lanyardName">KennyChan</div>
           </div>
-
           <div class="discord-username">
             <span id="lanyardUsername">ballknowledge17</span> · Atheist
           </div>
-
           <div id="lanyardActivity" class="discord-activity"></div>
-
-          <!-- Real Discord badges (Server Tag + public flags) -->
           <div class="profile-badges" id="profileBadges"></div>
-
           <div id="spotifySection" class="spotify-section">
             <img id="spotifyArt" class="spotify-art" src="" alt="">
             <div class="spotify-meta">
@@ -629,7 +455,6 @@
           </div>
         </div>
       </div>
-
       <div class="section-title" style="margin-top: 2.2rem;">Cool stuff</div>
       <div class="badges">
         <img src="https://88x31.nl/gifs/miku.gif" width="88" height="31" alt="">
@@ -642,17 +467,29 @@
       </div>
     </section>
 
-    <!-- Recently Played (Last.fm) -->
+    <!-- ========== RECENTLY PLAYED with Refresh Button ========== -->
     <section id="recent" class="reveal">
-      <div class="section-title">Recently Played</div>
+      <div class="section-header">
+        <div class="section-title">Recently Played</div>
+        <button class="refresh-btn" id="refreshLastfm" title="Refresh tracks">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M23 4v6h-6"/>
+            <path d="M1 20v-6h6"/>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+          </svg>
+        </button>
+      </div>
+
       <div class="card" id="lastfmTracks">
-        <div class="loading-text">Loading tracks...</div>
+        <div class="lastfm-loading">
+          <div class="lastfm-spinner"></div>
+          <div class="lastfm-loading-text">Loading tracks...</div>
+        </div>
       </div>
     </section>
 
     <section id="socials" class="reveal">
       <div class="section-title">Find me here</div>
-
       <div class="social-list">
         <a href="https://github.com/kennychan17-exe" class="social-item" target="_blank">
           <div class="social-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></div>
@@ -682,7 +519,7 @@
       </article>
       <article class="card blog-card">
         <h3>ADHD</h3>
-        <p>I have hyperactivity disorder ~ ADHD I get distracted so easily.</p>
+        <p>I have hyperactivity disorder \~ ADHD I get distracted so easily.</p>
         <div class="blog-meta">Overthinking</div>
       </article>
       <article class="card blog-card">
@@ -697,7 +534,6 @@
     <p>Made with care · KennyChan_</p>
   </footer>
 
-  <!-- Bottom floating nav buttons -->
   <nav class="bottom-nav">
     <div class="bottom-nav-inner">
       <a href="#about" class="bottom-nav-btn" data-section="about">
@@ -722,11 +558,13 @@
   <script>
     const DISCORD_ID = '426206662425051136';
 
-    // Loader with %
+    // Loader - locked
     (function() {
       const loader = document.getElementById('loader');
       const percentEl = document.getElementById('loaderPercent');
       const bar = document.getElementById('loaderBar');
+      document.documentElement.classList.add('loading');
+      document.body.classList.add('loading');
       let progress = 0;
       const interval = setInterval(() => {
         progress += Math.random() * 12 + 4;
@@ -735,6 +573,8 @@
           clearInterval(interval);
           setTimeout(() => {
             loader.classList.add('hide');
+            document.documentElement.classList.remove('loading');
+            document.body.classList.remove('loading');
             setTimeout(() => loader.remove(), 600);
           }, 300);
         }
@@ -744,38 +584,68 @@
     })();
 
     // Scroll reveal
-    const observer = new IntersectionObserver((entries) => {
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // Bottom nav active state
+    // Bottom Nav
     const sections = ['about', 'recent', 'socials', 'blog'];
     const navBtns = document.querySelectorAll('.bottom-nav-btn');
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          navBtns.forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.section === id);
-          });
-        }
+    let currentActive = null;
+
+    function setActive(id) {
+      if (id === currentActive) return;
+      currentActive = id;
+      navBtns.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.section === id);
       });
-    }, { threshold: 0.3 });
-    sections.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) sectionObserver.observe(el);
+    }
+
+    function updateActiveNav() {
+      const trigger = 110;
+      let current = sections[0];
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i]);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= trigger) {
+          current = sections[i];
+          break;
+        }
+      }
+      setActive(current);
+    }
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateActiveNav();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    navBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        [80, 250, 500, 800, 1100].forEach(delay => setTimeout(updateActiveNav, delay));
+      });
     });
 
-    // Fixed avatar URL builder
+    window.addEventListener('scrollend', updateActiveNav);
+    updateActiveNav();
+
+    // Lanyard
     function buildAvatarUrl(user, size) {
       if (!user || !user.avatar) {
-        return `https://cdn.discordapp.com/avatars/${DISCORD_ID}/3854cb2792f754bd0c5c89a89d9c6c53.png?size=${size}`;
+        return `https://cdn.discordapp.com/avatars/\( {DISCORD_ID}/3854cb2792f754bd0c5c89a89d9c6c53.png?size= \){size}`;
       }
       const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
-      return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=${size}`;
+      return `https://cdn.discordapp.com/avatars/\( {user.id}/ \){user.avatar}.\( {ext}?size= \){size}`;
     }
 
     function renderBadges(user) {
@@ -783,39 +653,34 @@
       if (!container) return;
       container.innerHTML = '';
 
-      // Real Discord Server Tag (Clan / primary_guild)
       if (user.primary_guild && user.primary_guild.identity_enabled && user.primary_guild.tag) {
         const guild = user.primary_guild;
         const badgeUrl = guild.badge
-          ? `https://cdn.discordapp.com/clan-badges/${guild.identity_guild_id}/${guild.badge}.png?size=16`
+          ? `https://cdn.discordapp.com/clan-badges/\( {guild.identity_guild_id}/ \){guild.badge}.png?size=16`
           : null;
-
         const el = document.createElement('div');
         el.className = 'discord-badge';
         el.title = 'Server Tag';
-        if (badgeUrl) {
-          el.innerHTML = `<img src="${badgeUrl}" alt="" onerror="this.style.display='none'"> ${guild.tag}`;
-        } else {
-          el.textContent = guild.tag;
-        }
+        el.innerHTML = badgeUrl
+          ? `<img src="${badgeUrl}" alt="" onerror="this.style.display='none'"> ${guild.tag}`
+          : guild.tag;
         container.appendChild(el);
       }
 
-      // Public flags → real Discord badges
       const flags = user.public_flags || 0;
       const badgeMap = [
-        { bit: 1 << 0,  name: 'Staff', class: '' },
-        { bit: 1 << 1,  name: 'Partner', class: '' },
-        { bit: 1 << 2,  name: 'HypeSquad Events', class: 'hypesquad' },
-        { bit: 1 << 3,  name: 'Bug Hunter', class: '' },
-        { bit: 1 << 6,  name: 'HypeSquad Bravery', class: 'hypesquad' },
-        { bit: 1 << 7,  name: 'HypeSquad Brilliance', class: 'hypesquad' },
-        { bit: 1 << 8,  name: 'HypeSquad Balance', class: 'hypesquad' },
-        { bit: 1 << 9,  name: 'Early Supporter', class: 'early' },
-        { bit: 1 << 14, name: 'Bug Hunter L2', class: '' },
-        { bit: 1 << 17, name: 'Verified Bot Dev', class: '' },
-        { bit: 1 << 18, name: 'Moderator', class: '' },
-        { bit: 1 << 22, name: 'Active Developer', class: '' },
+        { bit: 1 << 0, name: 'Staff' },
+        { bit: 1 << 1, name: 'Partner' },
+        { bit: 1 << 2, name: 'HypeSquad Events', class: 'hypesquad' },
+        { bit: 1 << 3, name: 'Bug Hunter' },
+        { bit: 1 << 6, name: 'HypeSquad Bravery', class: 'hypesquad' },
+        { bit: 1 << 7, name: 'HypeSquad Brilliance', class: 'hypesquad' },
+        { bit: 1 << 8, name: 'HypeSquad Balance', class: 'hypesquad' },
+        { bit: 1 << 9, name: 'Early Supporter', class: 'early' },
+        { bit: 1 << 14, name: 'Bug Hunter L2' },
+        { bit: 1 << 17, name: 'Verified Bot Dev' },
+        { bit: 1 << 18, name: 'Moderator' },
+        { bit: 1 << 22, name: 'Active Developer' },
       ];
 
       badgeMap.forEach(b => {
@@ -827,7 +692,6 @@
         }
       });
 
-      // Nitro (inferred from animated avatar)
       if (user.avatar && user.avatar.startsWith('a_')) {
         const el = document.createElement('div');
         el.className = 'discord-badge nitro';
@@ -838,7 +702,6 @@
 
     function updatePresence(data) {
       if (!data || !data.discord_user) return;
-
       const user = data.discord_user;
       const status = data.discord_status || 'offline';
       const displayName = user.global_name || user.username || 'KennyChan';
@@ -847,7 +710,6 @@
       const profileImg = document.getElementById('profileAvatar');
       if (profileImg) profileImg.src = buildAvatarUrl(user, 256);
 
-      // Discord avatar decoration
       const decoEl = document.getElementById('avatarDecoration');
       if (decoEl) {
         const deco = user.avatar_decoration_data;
@@ -867,14 +729,11 @@
       const statusDot = document.getElementById('statusDot');
       if (statusDot) statusDot.className = 'status-indicator ' + status;
 
-      // Real Discord badges
       renderBadges(user);
 
-      // Custom status bubble (like "Weirdo")
       const bubble = document.getElementById('customStatusBubble');
       const activities = data.activities || [];
       const custom = activities.find(a => a.type === 4);
-
       if (custom && custom.state) {
         bubble.textContent = custom.state;
         bubble.classList.add('visible');
@@ -882,10 +741,8 @@
         bubble.classList.remove('visible');
       }
 
-      // Activity text (playing games etc)
       const activityEl = document.getElementById('lanyardActivity');
       const playing = activities.find(a => [0,1,2,3,5].includes(a.type));
-
       if (playing) {
         activityEl.style.display = 'block';
         activityEl.textContent = playing.details ? `${playing.name} — ${playing.details}` : playing.name;
@@ -911,7 +768,6 @@
         if (json.success) updatePresence(json.data);
       } catch (e) {}
     }
-
     fetchLanyard();
     setInterval(fetchLanyard, 30000);
 
@@ -924,7 +780,7 @@
       };
     } catch (e) {}
 
-    // ===== Last.fm Recently Played =====
+    // ===== Last.fm + Refresh Button =====
     const LASTFM_USER = 'kennychan17';
     const LASTFM_API_KEY = 'dde54984a86bfb046980fe8b5dd70a7f';
 
@@ -937,18 +793,29 @@
       return Math.floor(seconds / 86400) + 'd ago';
     }
 
+    function showLastfmLoading() {
+      const container = document.getElementById('lastfmTracks');
+      if (!container) return;
+      container.innerHTML = `
+        <div class="lastfm-loading">
+          <div class="lastfm-spinner"></div>
+          <div class="lastfm-loading-text">Loading tracks...</div>
+        </div>
+      `;
+    }
+
     async function fetchLastfm() {
       const container = document.getElementById('lastfmTracks');
       if (!container) return;
 
       try {
         const res = await fetch(
-          `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LASTFM_USER}&api_key=${LASTFM_API_KEY}&format=json&limit=5`
+          `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=\( {LASTFM_USER}&api_key= \){LASTFM_API_KEY}&format=json&limit=5`
         );
         const data = await res.json();
 
         if (!data.recenttracks || !data.recenttracks.track) {
-          container.innerHTML = '<div class="loading-text">No recent tracks found</div>';
+          container.innerHTML = `<div class="lastfm-empty">No recent tracks found</div>`;
           return;
         }
 
@@ -982,13 +849,26 @@
 
         container.innerHTML = html;
       } catch (e) {
-        container.innerHTML = '<div class="loading-text">Could not load tracks</div>';
+        container.innerHTML = `<div class="lastfm-empty">Could not load tracks</div>`;
       }
     }
 
-    fetchLastfm();
-    setInterval(fetchLastfm, 60000);
-  </script>
+    // Refresh button
+    const refreshBtn = document.getElementById('refreshLastfm');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', () => {
+        refreshBtn.classList.add('spinning');
+        showLastfmLoading();
+        fetchLastfm().finally(() => {
+          setTimeout(() => refreshBtn.classList.remove('spinning'), 600);
+        });
+      });
+    }
 
+    // Initial load + auto refresh every 30 seconds
+    showLastfmLoading();
+    fetchLastfm();
+    setInterval(fetchLastfm, 30000);
+  </script>
 </body>
 </html>
