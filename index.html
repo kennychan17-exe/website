@@ -10,10 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --card-bg: rgba(16, 16, 16, 0.85);
-      --card-border: rgba(255, 255, 255, 0.07);
+      --card-bg: rgba(16, 16, 16, 0.92);
+      --card-border: rgba(255, 255, 255, 0.08);
       --text-main: #f2f2f2;
       --text-muted: rgba(200, 200, 210, 0.55);
+      --accent: #c4b5fd;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html { scroll-behavior: smooth; }
@@ -24,6 +25,7 @@
       overflow-x: hidden;
       min-height: 100vh; min-height: 100dvh;
       -webkit-font-smoothing: antialiased;
+      padding-bottom: 90px; /* space for bottom nav */
     }
 
     #loader {
@@ -68,7 +70,6 @@
       to { opacity: 1; }
     }
 
-
     .reveal { opacity: 0; transform: translateY(32px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
@@ -77,27 +78,30 @@
     .d1 { animation-delay: 0.12s; } .d2 { animation-delay: 0.24s; } .d3 { animation-delay: 0.36s; } .d4 { animation-delay: 0.48s; }
 
     .container { max-width: 700px; margin: 0 auto; padding: 0 1.35rem; }
+
+    /* ===== HERO ===== */
     .hero {
       min-height: 100vh; min-height: 100dvh;
       display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-      padding: 3.2rem 1.2rem 4.5rem; position: relative;
+      padding: 3.2rem 1.2rem 5.5rem; position: relative;
     }
     .logo {
       font-family: 'Space Grotesk', sans-serif;
       font-size: clamp(2.8rem, 9.5vw, 5.5rem); font-weight: 700; letter-spacing: -0.04em;
       background: linear-gradient(135deg, #fff 15%, #c4b5fd 65%, #93c5fd 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.55rem;
     }
-    .tagline { font-size: 0.9rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 3rem; }
-    .nav-links { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 2.5rem; }
-    .nav-links a {
-      color: rgba(240, 242, 250, 0.72); text-decoration: none; font-size: 1.05rem;
-      letter-spacing: 0.13em; text-transform: uppercase; transition: all 0.3s ease;
+    .pronouns {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+      margin-bottom: 2.8rem;
+      font-weight: 400;
     }
-    .nav-links a:hover { color: #fff; transform: translateX(6px); }
+
     .scroll-hint {
-      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      position: absolute; bottom: 2.8rem; left: 50%; transform: translateX(-50%);
       font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.28);
       animation: softPulse 2.6s ease-in-out infinite;
     }
@@ -117,7 +121,7 @@
       background: rgba(255,255,255,0.1); vertical-align: middle; margin: 0 0.85rem;
     }
 
-    /* ===== Discord-style Profile Card ===== */
+    /* ===== Discord-style Profile Card (matched to screenshot) ===== */
     .discord-card {
       background: var(--card-bg);
       backdrop-filter: blur(18px);
@@ -125,74 +129,139 @@
       border-radius: 16px;
       overflow: hidden;
       margin-bottom: 1.4rem;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
     }
 
-    /* Banner - CHANGE THE URL BELOW to your own banner image */
     .discord-banner {
       height: 140px;
       width: 100%;
       background-color: #1a1a1e;
-      background-image: url('https://raw.githubusercontent.com/kennychan17-exe/website/refs/heads/main/31935d65e1364ed5a81720e92d09c9bc.jpg'); /* <-- replace this URL with your banner */
+      background-image: url('https://raw.githubusercontent.com/kennychan17-exe/website/refs/heads/main/31935d65e1364ed5a81720e92d09c9bc.jpg');
       background-size: cover;
       background-position: center;
       position: relative;
     }
 
-    /* If you don't have a banner yet, the dark background will show.
-       To add one: upload your image somewhere (Discord, Imgur, etc.) and paste the direct image link above. */
-
     .discord-body {
       position: relative;
-      padding: 0 1.35rem 1.35rem;
+      padding: 0 1.35rem 1.25rem;
     }
 
     .discord-avatar-wrap {
       position: relative;
-      margin-top: -48px;
-      margin-bottom: 0.85rem;
-      width: fit-content;
+      margin-top: -52px;
+      margin-bottom: 0.9rem;
+      width: 108px;
+      height: 108px;
     }
 
     .discord-avatar {
-      width: 92px;
-      height: 92px;
+      width: 96px;
+      height: 96px;
       border-radius: 50%;
       object-fit: cover;
       border: 6px solid #101010;
       background: #111;
       display: block;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      z-index: 1;
+    }
+
+    /* Discord avatar decoration (frame) */
+    .avatar-decoration {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 108px;
+      height: 108px;
+      pointer-events: none;
+      z-index: 2;
+      display: none;
+    }
+    .avatar-decoration.visible {
+      display: block;
     }
 
     .status-indicator {
       position: absolute;
-      bottom: 4px;
-      right: 4px;
-      width: 22px;
-      height: 22px;
+      bottom: 8px;
+      right: 8px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       border: 4px solid #101010;
       background: #747f8d;
+      z-index: 3;
     }
     .status-indicator.online { background: #23a55a; }
     .status-indicator.idle { background: #f0b232; }
     .status-indicator.dnd { background: #f23f43; }
     .status-indicator.offline { background: #747f8d; }
 
-    .discord-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.45rem;
-      font-weight: 600;
-      margin-bottom: 0.15rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
+    /* Custom status bubble like "Weirdo" */
+    .custom-status-bubble {
+      position: absolute;
+      left: 108px;
+      top: 18px;
+      background: #1e1f22;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 0.4rem 0.85rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #fff;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      display: none;
+      z-index: 2;
+    }
+    .custom-status-bubble.visible {
+      display: block;
+    }
+    .custom-status-bubble::before {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      background: #1e1f22;
+      border-left: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transform: translateY(-50%) rotate(45deg);
     }
 
-    .discord-status-text {
-      font-size: 0.92rem;
+    .discord-name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.15rem;
+      flex-wrap: wrap;
+    }
+
+    .discord-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 50%, #93c5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      /* pixel-ish feel */
+      text-shadow: 0 0 20px rgba(167, 139, 250, 0.25);
+    }
+
+    .discord-username {
+      font-size: 0.95rem;
       color: var(--text-muted);
-      margin-bottom: 0.65rem;
+      margin-bottom: 0.55rem;
+    }
+    .discord-username span {
+      color: rgba(220, 220, 230, 0.7);
     }
 
     .discord-bio {
@@ -207,6 +276,51 @@
       color: rgba(200, 210, 235, 0.65);
       margin-bottom: 0.5rem;
       display: none;
+    }
+
+    /* Real Discord badges / Server Tag */
+    .profile-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin: 0.55rem 0 0.35rem;
+      align-items: center;
+      min-height: 26px;
+    }
+    .discord-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(88, 101, 242, 0.18);
+      border: 1px solid rgba(88, 101, 242, 0.35);
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem 0.18rem 0.28rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #c9cdfb;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+    .discord-badge img {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      object-fit: cover;
+    }
+    .discord-badge.nitro {
+      background: rgba(246, 135, 179, 0.15);
+      border-color: rgba(246, 135, 179, 0.35);
+      color: #f6a9c8;
+    }
+    .discord-badge.hypesquad {
+      background: rgba(255, 115, 70, 0.15);
+      border-color: rgba(255, 115, 70, 0.35);
+      color: #ff9b7a;
+    }
+    .discord-badge.early {
+      background: rgba(255, 200, 60, 0.12);
+      border-color: rgba(255, 200, 60, 0.3);
+      color: #ffd56a;
     }
 
     .spotify-section {
@@ -277,7 +391,6 @@
     .track-item:nth-child(5) { animation-delay: 0.38s; }
     .track-item:last-child { border-bottom: none; }
 
-
     @keyframes trackFadeIn {
       to {
         opacity: 1;
@@ -334,183 +447,126 @@
       animation: softPulse 1.8s ease-in-out infinite;
     }
 
-
-
     .blog-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; margin-bottom: 0.45rem; font-weight: 600; }
     .blog-card p { color: var(--text-muted); font-size: 0.94rem; line-height: 1.55; margin-bottom: 0.7rem; }
     .blog-meta { font-size: 0.76rem; color: rgba(180, 190, 210, 0.35); }
 
     footer { text-align: center; padding: 3.8rem 1.4rem 3rem; color: rgba(255,255,255,0.2); font-size: 0.82rem; }
 
+    /* ===== Bottom Floating Navigation ===== */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      padding: 0.7rem 1rem 1.1rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 40%, transparent);
+      pointer-events: none;
+    }
+    .bottom-nav-inner {
+      display: flex;
+      gap: 0.4rem;
+      background: rgba(18, 18, 20, 0.92);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      padding: 0.4rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      pointer-events: auto;
+    }
+    .bottom-nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.15rem;
+      width: 64px;
+      height: 52px;
+      border-radius: 999px;
+      color: rgba(200, 200, 210, 0.55);
+      text-decoration: none;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: all 0.25s ease;
+    }
+    .bottom-nav-btn svg {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.25s ease;
+    }
+    .bottom-nav-btn:hover,
+    .bottom-nav-btn.active {
+      color: #c4b5fd;
+      background: rgba(196, 181, 253, 0.12);
+    }
+    .bottom-nav-btn:hover svg,
+    .bottom-nav-btn.active svg {
+      transform: scale(1.1);
+    }
+
     /* ========== Mobile Responsive Styles ========== */
-
-    /* Tablets and large phones */
     @media (max-width: 600px) {
-      .container {
-        padding: 0 1.1rem;
-      }
+      .container { padding: 0 1.1rem; }
+      .hero { padding: 2.8rem 1rem 5rem; }
+      .logo { font-size: 2.6rem; }
+      .pronouns { font-size: 0.95rem; margin-bottom: 2.2rem; }
+      section { padding: 3.2rem 0 1.2rem; }
+      .section-title { font-size: 0.88rem; margin-bottom: 1.7rem; }
+      .section-title::before, .section-title::after { width: 22px; margin: 0 0.6rem; }
 
-      .hero {
-        padding: 2.8rem 1rem 4rem;
-      }
+      .discord-banner { height: 110px; }
+      .discord-avatar-wrap { width: 96px; height: 96px; margin-top: -44px; }
+      .discord-avatar { width: 84px; height: 84px; border-width: 5px; top: 6px; left: 6px; }
+      .avatar-decoration { width: 96px; height: 96px; }
+      .status-indicator { width: 20px; height: 20px; border-width: 3.5px; bottom: 6px; right: 6px; }
+      .custom-status-bubble { left: 104px; top: 14px; font-size: 0.88rem; padding: 0.35rem 0.75rem; }
+      .discord-body { padding: 0 1.15rem 1.15rem; }
+      .discord-name { font-size: 1.32rem; }
+      .discord-username { font-size: 0.9rem; }
 
-      .logo {
-        font-size: 2.6rem;
-      }
+      .social-item { padding: 0.9rem 1.1rem; }
+      .badges { gap: 7px; margin-top: 1.2rem; }
+      .badges img { width: 80px; height: 28px; }
+      footer { padding: 3rem 1.2rem 2.6rem; }
 
-      .tagline {
-        font-size: 0.82rem;
-        margin-bottom: 2.4rem;
-      }
-
-      .nav-links {
-        gap: 0.75rem;
-      }
-
-      .nav-links a {
-        font-size: 0.95rem;
-        letter-spacing: 0.1em;
-      }
-
-      section {
-        padding: 3.2rem 0 1.2rem;
-      }
-
-      .section-title {
-        font-size: 0.88rem;
-        margin-bottom: 1.7rem;
-      }
-
-      .section-title::before,
-      .section-title::after {
-        width: 22px;
-        margin: 0 0.6rem;
-      }
-
-      /* Discord card on mobile */
-      .discord-banner {
-        height: 110px;
-      }
-
-      .discord-avatar {
-        width: 80px;
-        height: 80px;
-        border-width: 5px;
-      }
-
-      .discord-avatar-wrap {
-        margin-top: -42px;
-      }
-
-      .status-indicator {
-        width: 18px;
-        height: 18px;
-        border-width: 3.5px;
-        bottom: 3px;
-        right: 3px;
-      }
-
-      .discord-body {
-        padding: 0 1.15rem 1.2rem;
-      }
-
-      .discord-name {
-        font-size: 1.28rem;
-      }
-
-      .discord-status-text {
-        font-size: 0.88rem;
-      }
-
-      .discord-bio {
-        font-size: 0.97rem;
-      }
-
-      .social-item {
-        padding: 0.9rem 1.1rem;
-      }
-
-      .badges {
-        gap: 7px;
-        margin-top: 1.2rem;
-      }
-
-      .badges img {
-        width: 80px;
-        height: 28px;
-      }
-
-      footer {
-        padding: 3rem 1.2rem 2.6rem;
-      }
+      .bottom-nav-btn { width: 58px; height: 48px; font-size: 0.58rem; }
+      .bottom-nav-btn svg { width: 18px; height: 18px; }
     }
 
-    /* Small phones */
     @media (max-width: 400px) {
-      .container {
-        padding: 0 0.9rem;
-      }
-
-      .logo {
-        font-size: 2.35rem;
-      }
-
-      .hero {
-        padding: 2.4rem 0.85rem 3.5rem;
-      }
-
-      .discord-banner {
-        height: 95px;
-      }
-
-      .discord-avatar {
-        width: 72px;
-        height: 72px;
-      }
-
-      .discord-avatar-wrap {
-        margin-top: -38px;
-      }
-
-      .discord-name {
-        font-size: 1.18rem;
-      }
-
-      .section-title::before,
-      .section-title::after {
-        width: 16px;
-        margin: 0 0.45rem;
-      }
-
-      .badges img {
-        width: 74px;
-        height: 26px;
-      }
+      .container { padding: 0 0.9rem; }
+      .logo { font-size: 2.35rem; }
+      .hero { padding: 2.4rem 0.85rem 4.5rem; }
+      .discord-banner { height: 95px; }
+      .discord-avatar-wrap { width: 88px; height: 88px; margin-top: -40px; }
+      .discord-avatar { width: 76px; height: 76px; top: 6px; left: 6px; }
+      .avatar-decoration { width: 88px; height: 88px; }
+      .status-indicator { bottom: 5px; right: 5px; }
+      .custom-status-bubble { left: 96px; font-size: 0.82rem; }
+      .discord-name { font-size: 1.2rem; }
+      .section-title::before, .section-title::after { width: 16px; margin: 0 0.45rem; }
+      .badges img { width: 74px; height: 26px; }
+      .bottom-nav-btn { width: 52px; }
     }
 
-    /* Desktop / larger screens */
-    @media (min-width: 601px) {
-      .nav-links {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1.5rem 2.2rem;
-      }
-    }
-
-    /* Safe area support for notched phones (iPhone etc.) */
     @supports (padding: max(0px)) {
       body {
         padding-left: max(0px, env(safe-area-inset-left));
         padding-right: max(0px, env(safe-area-inset-right));
+        padding-bottom: max(90px, calc(70px + env(safe-area-inset-bottom)));
       }
       .hero {
         padding-top: max(3.2rem, env(safe-area-inset-top));
-        padding-bottom: max(4.5rem, env(safe-area-inset-bottom));
+      }
+      .bottom-nav {
+        padding-bottom: max(1.1rem, env(safe-area-inset-bottom));
       }
     }
   </style>
-
 </head>
 <body>
 
@@ -522,25 +578,18 @@
 
   <header class="hero">
     <div class="logo hero-animate">KennyChan_</div>
-    <div class="tagline hero-animate d1">he/him</div>
-    <nav class="nav-links">
-      <a href="#about" class="hero-animate d2">About Me</a>
-      <a href="#socials" class="hero-animate d3">Socials</a>
-      <a href="#blog" class="hero-animate d3">Blog</a>
-    </nav>
+    <div class="pronouns hero-animate d1">He/Him</div>
 
-
-    <div class="scroll-hint hero-animate d4">Scroll down</div>
+    <div class="scroll-hint hero-animate d2">Scroll down</div>
   </header>
 
   <main class="container">
 
-    <!-- ===== MERGED About Me + Status (Discord style) ===== -->
+    <!-- ===== About Me (Discord style matched to screenshot) ===== -->
     <section id="about" class="reveal">
       <div class="section-title">About Me</div>
 
       <div class="discord-card">
-        <!-- BANNER: Change the background-image URL in CSS (.discord-banner) to your own image -->
         <div class="discord-banner"></div>
 
         <div class="discord-body">
@@ -550,13 +599,25 @@
                  class="discord-avatar"
                  alt="KennyChan_"
                  onerror="this.src='https://cdn.discordapp.com/avatars/426206662425051136/3854cb2792f754bd0c5c89a89d9c6c53.png?size=256&t=' + Date.now()">
+            <img id="avatarDecoration" class="avatar-decoration" src="" alt="">
             <div id="statusDot" class="status-indicator offline"></div>
           </div>
 
-          <div class="discord-name" id="lanyardName">KennyChan_</div>
-          <div id="lanyardStatus" class="discord-status-text">Offline</div>
+          <!-- Custom status bubble (like "Weirdo") -->
+          <div id="customStatusBubble" class="custom-status-bubble"></div>
+
+          <div class="discord-name-row">
+            <div class="discord-name" id="lanyardName">KennyChan</div>
+          </div>
+
+          <div class="discord-username">
+            <span id="lanyardUsername">ballknowledge17</span> · Atheist
+          </div>
 
           <div id="lanyardActivity" class="discord-activity"></div>
+
+          <!-- Real Discord badges (Server Tag + public flags) -->
+          <div class="profile-badges" id="profileBadges"></div>
 
           <div id="spotifySection" class="spotify-section">
             <img id="spotifyArt" class="spotify-art" src="" alt="">
@@ -578,7 +639,6 @@
         <img src="https://88x31.nl/gifs/thatwhitehand.png" width="88" height="31" alt="">
         <img src="https://88x31.nl/gifs/verine.gif" width="88" height="31" alt="">
         <img src="https://88x31.nl/gifs/js.gif" width="88" height="31" alt="">
-        
       </div>
     </section>
 
@@ -588,7 +648,6 @@
       <div class="card" id="lastfmTracks">
         <div class="loading-text">Loading tracks...</div>
       </div>
-
     </section>
 
     <section id="socials" class="reveal">
@@ -638,6 +697,28 @@
     <p>Made with care · KennyChan_</p>
   </footer>
 
+  <!-- Bottom floating nav buttons -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <a href="#about" class="bottom-nav-btn" data-section="about">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        About
+      </a>
+      <a href="#recent" class="bottom-nav-btn" data-section="recent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        Music
+      </a>
+      <a href="#socials" class="bottom-nav-btn" data-section="socials">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Socials
+      </a>
+      <a href="#blog" class="bottom-nav-btn" data-section="blog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Blog
+      </a>
+    </div>
+  </nav>
+
   <script>
     const DISCORD_ID = '426206662425051136';
 
@@ -662,13 +743,31 @@
       }, 70);
     })();
 
-    // Scroll reveal animation (already working)
+    // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Bottom nav active state
+    const sections = ['about', 'recent', 'socials', 'blog'];
+    const navBtns = document.querySelectorAll('.bottom-nav-btn');
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.section === id);
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) sectionObserver.observe(el);
+    });
 
     // Fixed avatar URL builder
     function buildAvatarUrl(user, size) {
@@ -679,33 +778,115 @@
       return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=${size}`;
     }
 
+    function renderBadges(user) {
+      const container = document.getElementById('profileBadges');
+      if (!container) return;
+      container.innerHTML = '';
+
+      // Real Discord Server Tag (Clan / primary_guild)
+      if (user.primary_guild && user.primary_guild.identity_enabled && user.primary_guild.tag) {
+        const guild = user.primary_guild;
+        const badgeUrl = guild.badge
+          ? `https://cdn.discordapp.com/clan-badges/${guild.identity_guild_id}/${guild.badge}.png?size=16`
+          : null;
+
+        const el = document.createElement('div');
+        el.className = 'discord-badge';
+        el.title = 'Server Tag';
+        if (badgeUrl) {
+          el.innerHTML = `<img src="${badgeUrl}" alt="" onerror="this.style.display='none'"> ${guild.tag}`;
+        } else {
+          el.textContent = guild.tag;
+        }
+        container.appendChild(el);
+      }
+
+      // Public flags → real Discord badges
+      const flags = user.public_flags || 0;
+      const badgeMap = [
+        { bit: 1 << 0,  name: 'Staff', class: '' },
+        { bit: 1 << 1,  name: 'Partner', class: '' },
+        { bit: 1 << 2,  name: 'HypeSquad Events', class: 'hypesquad' },
+        { bit: 1 << 3,  name: 'Bug Hunter', class: '' },
+        { bit: 1 << 6,  name: 'HypeSquad Bravery', class: 'hypesquad' },
+        { bit: 1 << 7,  name: 'HypeSquad Brilliance', class: 'hypesquad' },
+        { bit: 1 << 8,  name: 'HypeSquad Balance', class: 'hypesquad' },
+        { bit: 1 << 9,  name: 'Early Supporter', class: 'early' },
+        { bit: 1 << 14, name: 'Bug Hunter L2', class: '' },
+        { bit: 1 << 17, name: 'Verified Bot Dev', class: '' },
+        { bit: 1 << 18, name: 'Moderator', class: '' },
+        { bit: 1 << 22, name: 'Active Developer', class: '' },
+      ];
+
+      badgeMap.forEach(b => {
+        if (flags & b.bit) {
+          const el = document.createElement('div');
+          el.className = 'discord-badge ' + (b.class || '');
+          el.textContent = b.name;
+          container.appendChild(el);
+        }
+      });
+
+      // Nitro (inferred from animated avatar)
+      if (user.avatar && user.avatar.startsWith('a_')) {
+        const el = document.createElement('div');
+        el.className = 'discord-badge nitro';
+        el.textContent = 'Nitro';
+        container.appendChild(el);
+      }
+    }
+
     function updatePresence(data) {
       if (!data || !data.discord_user) return;
 
       const user = data.discord_user;
       const status = data.discord_status || 'offline';
-      const displayName = user.global_name || user.username || 'KennyChan_';
+      const displayName = user.global_name || user.username || 'KennyChan';
+      const username = user.username || 'ballknowledge17';
 
       const profileImg = document.getElementById('profileAvatar');
       if (profileImg) profileImg.src = buildAvatarUrl(user, 256);
 
+      // Discord avatar decoration
+      const decoEl = document.getElementById('avatarDecoration');
+      if (decoEl) {
+        const deco = user.avatar_decoration_data;
+        if (deco && deco.asset) {
+          decoEl.src = `https://cdn.discordapp.com/avatar-decoration-presets/${deco.asset}.png?size=160&passthrough=true`;
+          decoEl.classList.add('visible');
+        } else {
+          decoEl.src = '';
+          decoEl.classList.remove('visible');
+        }
+      }
+
       document.getElementById('lanyardName').textContent = displayName;
-      document.getElementById('lanyardStatus').textContent = {
-        online: 'Online', idle: 'Idle', dnd: 'Do Not Disturb', offline: 'Offline'
-      }[status] || status;
+      const usernameEl = document.getElementById('lanyardUsername');
+      if (usernameEl) usernameEl.textContent = username;
 
       const statusDot = document.getElementById('statusDot');
       if (statusDot) statusDot.className = 'status-indicator ' + status;
 
-      const activityEl = document.getElementById('lanyardActivity');
+      // Real Discord badges
+      renderBadges(user);
+
+      // Custom status bubble (like "Weirdo")
+      const bubble = document.getElementById('customStatusBubble');
       const activities = data.activities || [];
       const custom = activities.find(a => a.type === 4);
-      const playing = activities.find(a => [0,1,2,3,5].includes(a.type));
 
       if (custom && custom.state) {
-        activityEl.style.display = 'block';
-        activityEl.textContent = custom.emoji ? `${custom.emoji.name || ''} ${custom.state}`.trim() : custom.state;
-      } else if (playing) {
+        bubble.textContent = custom.state;
+        bubble.classList.add('visible');
+      } else {
+        bubble.classList.remove('visible');
+      }
+
+      // Activity text (playing games etc)
+      const activityEl = document.getElementById('lanyardActivity');
+      const playing = activities.find(a => [0,1,2,3,5].includes(a.type));
+
+      if (playing) {
         activityEl.style.display = 'block';
         activityEl.textContent = playing.details ? `${playing.name} — ${playing.details}` : playing.name;
       } else {
@@ -768,7 +949,6 @@
 
         if (!data.recenttracks || !data.recenttracks.track) {
           container.innerHTML = '<div class="loading-text">No recent tracks found</div>';
-
           return;
         }
 
@@ -803,12 +983,11 @@
         container.innerHTML = html;
       } catch (e) {
         container.innerHTML = '<div class="loading-text">Could not load tracks</div>';
-
       }
     }
 
     fetchLastfm();
-    setInterval(fetchLastfm, 60000); // refresh every 60 seconds
+    setInterval(fetchLastfm, 60000);
   </script>
 
 </body>
